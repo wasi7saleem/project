@@ -8,11 +8,28 @@ body{
     table, th, td {
         border:1px solid black;
       }
-h2{
-    margin-bottom: -16px;
-    color: wheat;
+      .days{
+        background-color: chartreuse;
+        border: 1px rgb(0, 253, 0) solid;
+        border-radius: 10px;
+        display: inline-block;
+        padding: 10px 24px;
+        margin: 0px 10px;
+    }
+.date{
+    background-color: chartreuse;
+    border: 1px rgb(0, 253, 0) solid;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0px 12px;
 }
-td{
-    background-color: brown;
-    border-radius: 5px;
+.days_h2{
+    margin: 0px -16px 0px -18px;
+}
+.date_islamic{
+    margin: -4px 20px -18px 20px;
+}
+.date_normal{
+    margin-bottom: -6px;
 }
