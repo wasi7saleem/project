@@ -1,0 +1,18 @@
+body{
+    background-color:antiquewhite;
+
+}
+.main{
+    text-align: center;
+}
+    table, th, td {
+        border:1px solid black;
+      }
+h2{
+    margin-bottom: -16px;
+    color: wheat;
+}
+td{
+    background-color: brown;
+    border-radius: 5px;
+}
