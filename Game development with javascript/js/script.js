@@ -43,7 +43,7 @@ window.onload = function() {
         context.font = '25px Arial';
         context.fillStyle = 'black';
         context.fillText("FPS: " + fps, 20, 30);
-
+ 
         context.beginPath();
         context.rect(x, y, 100, 100);
         context.fillStyle="red";
