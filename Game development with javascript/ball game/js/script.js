@@ -1,90 +1,70 @@
+var count;
+var t = Date.now();
+var speed = 25;
+
 window.onload = function() {
-    var canvas = document.getElementById("canvas");
-    var context = canvas.getContext("2d");
-    var x = 250;
-    var y = 150;
-    var coinx = Math.random() * (600-50);
-	var coiny = Math.random() * (400-50);
-    
-    var t = Date.now();
-    let speed = 300;
-    let dir = 0;
-    let score = 0;
+   
+	let count = 0;
 
-    let up = document.getElementById('up');
-    let down = document.getElementById('down');
-    let left = document.getElementById('left');
-    let right = document.getElementById('right');
+	document.onkeydown = function() {
+		count += 1;
+		speed = 25;
 
-    up.onmousedown = function() { dir = 4;}
-    down.onmousedown = function() { dir = 3;}
-    left.onmousedown = function() { dir = 2;}
-    right.onmousedown = function() { dir = 1;}
+		//moves ball
+		y -= 35;
 
-    up.ontouchstart = function() { dir = 4;}
-    down.ontouchstart = function() { dir = 3;}
-    left.ontouchstart = function() { dir = 2;}
-    right.ontouchstart = function() { dir = 1;}
+		function draw() {
+		//clears canvas
+		context.clearRect(0, 0, 600, 400);
 
-    up.onmouseup = function() { dir = 0;}
-    down.onmouseup = function() { dir = 0;}
-    left.onmouseup = function() { dir = 0;}
-    right.onmouseup = function() { dir = 0;}
+		//redraws ball
+		context.beginPath();
+		context.arc(x, y, 50, 0, 2 * Math.PI);
+		context.fillStyle="red";
+		context.fill();
+	  
+		//draws count value
+		context.font = "25px Arial";
+		context.fillStyle='white';
+		context.fillText('Count: ' + count, 20, 30);
 
-    up.ontouchend = function() { dir = 0;}
-    down.ontouchend = function() { dir = 0;}
-    left.ontouchend = function() { dir = 0;}
-    right.ontouchend = function() { dir = 0;}
+		//calculates time difference
+		var timePassed = (Date.now() - t) / 1000;
+		t = Date.now();
 
-    function draw() {
-        var timePassed = (Date.now() - t) / 1000;
-        t = Date.now();
-        var fps = Math.round(1 / timePassed);
+		//adds gravity
+		if(y <= 750) {
+			speed += 250 * timePassed;
+			y += speed*timePassed;
+        }
 
-        context.clearRect(0, 0, 600, 400);
         
-        context.font = '25px Arial';
-        context.fillStyle = 'black';
-        context.fillText("Score: " + score, 20, 30);
+		//resets score when ball is dropped
+		if(y > 350) {
+			count = 0;
+			y = 350;
+		}
 
-        context.beginPath();
-        context.rect(x, y, 100, 100);
-        context.fillStyle="red";
-        context.fill();
+        //reset score if ball touches ceiling
+        if(y < 50) {
+			count = 0;
+			y = 50;
+		}
 
-        context.beginPath();
-        context.rect(coinx, coiny, 50, 50);
-        context.fillStyle="#e3c228";
-        context.fill(); 
+		
+		window.requestAnimationFrame(draw);	
+		}
+		draw();
+		
+	}
 
-        if(dir == 1) { 
-            if(x+100 < 600) {
-                x += (speed * timePassed);
-            }
-        }
-        else if(dir == 2) { 
-            if(x > 0) {
-                x -= (speed * timePassed);
-            }
-        }
-        else if(dir == 3) { 
-            if(y+100 < 400) {
-                y += (speed * timePassed);
-            }
-        }
-        else if(dir == 4) { 
-            if(y > 0) {
-                y -= (speed * timePassed);
-            }
-        }
 
-        if (coinx <= x+100 && x <= coinx+50 && coiny <= y+100 && y <= coiny+50) {
-            score++;
-            coinx = Math.random() * (600-50);
-            coiny = Math.random() * (400-50);
-        }
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	var x = 300;
+	var y = 350;
 
-        window.requestAnimationFrame(draw);
-    }
-    draw();
+	context.arc(x, y, 50, 0, 2 * Math.PI);
+	context.fillStyle="red";
+	context.fill();
 }
