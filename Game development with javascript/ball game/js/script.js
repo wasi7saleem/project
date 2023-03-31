@@ -33,7 +33,58 @@ window.onload = function() {
 		t = Date.now();
 
 		//adds gravity
-		if(y <= 750) {
+		if(y <= 350) {
+			speed += 250 * timePassed;
+			y += speed*timePassed;
+        }
+
+        
+		//resets score when ball is dropped
+		if(y > 350) {
+			count = 0;
+			y = 350;
+		}
+
+        //reset score if ball touches ceiling
+        if(y < 50) {
+			count = 0;
+			y = 50;
+		}
+
+		
+		window.requestAnimationFrame(draw);	
+		}
+		draw();
+		
+	}
+    document.ontouchstart = function() {
+		count += 1;
+		speed = 25;
+
+		//moves ball
+		y -= 35;
+
+		function draw() {
+		//clears canvas
+		context.clearRect(0, 0, 600, 400);
+
+		//redraws ball
+		context.beginPath();
+		context.arc(x, y, 50, 0, 2 * Math.PI);
+		context.fillStyle="green";
+		context.fill();
+	  
+		//draws count value
+		context.font = "25px Arial";
+		context.fillStyle='white';
+		context.fillText('Count: ' + count, 20, 30);
+
+		//calculates time difference
+		var timePassed = (Date.now() - t) / 1000;
+		t = Date.now();
+
+		//adds gravity
+		if(y <= 350) {
 			speed += 250 * timePassed;
 			y += speed*timePassed;
         }
